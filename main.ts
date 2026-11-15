@@ -10,7 +10,7 @@
 // /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 import { Buffer } from 'node:buffer';
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-threejs.ts';
@@ -36,9 +36,6 @@ function sourceDir() {
 const src = sourceDir();
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-// Wipe first: a stale file from an earlier run would break the grader's
-// byte-equality check between its two runs of this program.
-rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 cpSync(join(src, 'game'), join(out, 'game'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
